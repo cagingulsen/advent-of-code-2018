@@ -1,5 +1,4 @@
 import re
-import sys
 
 
 class Claim():
@@ -10,6 +9,27 @@ class Claim():
         self.row = int(re.search(',(.*):', claim_str).group(1))
         self.width = int(re.search(':(.*)x', claim_str).group(1))
         self.height = int(re.search('x(.*)', claim_str).group(1))
+
+
+def read_claims():
+    with open('input.txt') as f:
+        claims = []
+
+        for line in f:
+            new_claim = Claim(line)
+            claims.append(new_claim)
+
+        return claims
+
+
+def prepare_matrix(claims):
+    max_dimension = get_max_dimension(claims)
+
+    matrix = [[0] * max_dimension for _ in range(max_dimension)]
+
+    fill_matrix(matrix, claims)
+
+    return matrix
 
 
 def get_max_dimension(claims):
@@ -57,21 +77,9 @@ def find_non_overlapping_claim(matrix, claims):
             return claim
 
 
-with open(sys.argv[1]) as f:
-    claims = []
+if __name__ == '__main__':
+    claims = read_claims()
+    matrix = prepare_matrix(claims)
 
-    for line in f:
-        new_claim = Claim(line)
-        claims.append(new_claim)
-
-    max_dimension = get_max_dimension(claims)
-
-    matrix = [[0] * max_dimension for _ in range(max_dimension)]
-
-    fill_matrix(matrix, claims)
-
-    result1 = count_overlapping_squares(matrix)
-    print(result1)
-
-    result2 = find_non_overlapping_claim(matrix, claims).id
-    print(result2)
+    print(count_overlapping_squares(matrix))
+    print(find_non_overlapping_claim(matrix, claims).id)
