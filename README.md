@@ -6,6 +6,9 @@
     <a href="https://adventofcode.com/">
         <img src="https://img.shields.io/badge/status-active-brightgreen.svg" alt="active"/>
     </a>
+    <a href="http://unlicense.org/">
+        <img src="https://img.shields.io/badge/license-Unlicense-blue.svg" alt="Unlicense" />
+    </a>
 </p>
 <br> 
 
